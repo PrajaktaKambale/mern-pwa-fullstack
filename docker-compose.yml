@@ -1,13 +1,12 @@
+version: '3.8'
 services:
   frontend:
-    build:
-      context: ./Frontend
-      dockerfile: Dockerfile
+    build: ./Frontend
     container_name: bookstoreappUI
     ports:
-      - "5173:80" # Frontend served on port 80 inside the container
+      - "5173:5173" # Update to match Vite's port
     environment:
-      - VITE_API_URL=http://bookstoreBackend:4001
+      - VITE_API_URL=http://192.168.5.130:4001
     stdin_open: true
     tty: true
     depends_on:
@@ -16,9 +15,7 @@ services:
       - mern-network
 
   backend:
-    build:
-      context: ./Backend
-      dockerfile: Dockerfile
+    build: ./Backend
     container_name: bookstoreBackend
     restart: always
     ports:
@@ -37,20 +34,6 @@ services:
       - mongo-backup:/data/db
     networks:
       - mern-network
-
-  nginx-server:
-  image: nginx:latest
-  container_name: nginx-server
-  ports:
-    - "80:80"
-  depends_on:
-    - frontend
-    - backend
-  networks:
-    - mern-network
-  volumes:
-    - ./nginx.conf:/etc/nginx/nginx.conf
-    - ./frontend/dist:/usr/share/nginx/html
 
 networks:
   mern-network:
