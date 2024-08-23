@@ -7,30 +7,17 @@
 # CMD ["npm","start"]
 
 
-# Dockerfile for frontend
-FROM node:18-alpine as build
-
-# Set working directory
+# Stage 1: Build the frontend
+FROM node:18-alpine AS build
 WORKDIR /app
-
-# Install dependencies
 COPY package.json package-lock.json ./
 RUN npm install
-
-# Copy the application code
 COPY . .
-
-# Build the application
 RUN npm run build
 
-# Install Nginx and copy the build output
+# Stage 2: Serve the frontend
 FROM nginx:latest
-
-# Copy the built frontend assets from the build stage
 COPY --from=build /app/dist /usr/share/nginx/html
-
-# Copy custom nginx configuration
 COPY nginx.conf /etc/nginx/nginx.conf
 
-# Expose port 80
-EXPOSE 80
+
