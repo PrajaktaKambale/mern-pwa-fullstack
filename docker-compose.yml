@@ -1,11 +1,12 @@
+version: '3.8'
 services:
   frontend:
     build: ./Frontend
     container_name: bookstoreappUI
     ports:
-      - "5173:5173" # Vite development server port
+      - "5173:5173" # Update to match Vite's port
     environment:
-      - VITE_API_URL=http://bookstoreBackend:4001 # Use service name for internal communication
+      - VITE_API_URL=http://192.168.5.130:4001
     stdin_open: true
     tty: true
     depends_on:
