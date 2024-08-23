@@ -6,7 +6,7 @@ import { toast, Toaster } from "react-hot-toast";
 import Webcam from "react-webcam";
 import axios from "axios";
 
-import axiosInstance from "./axiosInstance";
+import axiosInstance from "../axiosInstance";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 axios.defaults.withCredentials = true;

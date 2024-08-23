@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import toast from "react-hot-toast";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
-import axiosInstance from "./axiosInstance";
+import axiosInstance from "../axiosInstance";
 function Login() {
   const {
     register,

@@ -7,7 +7,7 @@ import Slider from "react-slick";
 import axios from "axios";
 
 import Cards from "./Cards";
-import axiosInstance from "./axiosInstance";
+import axiosInstance from "../axiosInstance";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 function Freebook() {
   const [book, setBook] = useState([]);
