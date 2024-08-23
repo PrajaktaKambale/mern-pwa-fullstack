@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import toast from "react-hot-toast";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
+import axiosInstance from "./axiosInstance";
 function Login() {
   const {
     register,
@@ -16,8 +17,8 @@ function Login() {
       email: data.email,
       password: data.password,
     };
-    await axios
-      .post("http://localhost:4001/user/login", userInfo)
+    await axiosInstance
+      .post("/user/login", userInfo)
       .then((res) => {
         console.log(res.data);
         if (res.data) {

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Cards from "./Cards";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import axiosInstance from "./axiosInstance";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 console.log(import.meta.env);
@@ -14,7 +15,7 @@ function Course() {
   useEffect(() => {
     const getBook = async () => {
       try {
-        const res = await axios.get("http://localhost:4001/book");
+        const res = await axiosInstance.get("/book");
         console.log(res.data);
         setBook(res.data);
       } catch (error) {

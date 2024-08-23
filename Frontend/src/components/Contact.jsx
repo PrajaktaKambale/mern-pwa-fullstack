@@ -6,6 +6,8 @@ import { toast, Toaster } from "react-hot-toast";
 import Webcam from "react-webcam";
 import axios from "axios";
 
+import axiosInstance from "./axiosInstance";
+
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 axios.defaults.withCredentials = true;
 
@@ -63,15 +65,11 @@ const Contact = () => {
       //     },
       //   }
       // );
-      const response = await axios.post(
-        "http://localhost:4001/contact",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await axiosInstance.post("/contact", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       console.log("response", response);
       if (response.status !== 201)
         throw new Error("Network response was not ok");
