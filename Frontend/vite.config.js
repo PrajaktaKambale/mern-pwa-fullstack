@@ -36,6 +36,9 @@ export default defineConfig({
             purpose: "maskable",
           },
         ],
+        server: {
+          host: true, // Make the server accessible on all network interfaces
+        },
       },
     }),
   ],
