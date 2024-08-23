@@ -4,7 +4,7 @@ services:
     build: ./Frontend
     container_name: bookstoreappUI
     ports:
-      - "3000:3000"
+      - "5173:5173" # Update to match Vite's port
     environment:
       - VITE_API_URL=http://192.168.5.130:4001
     stdin_open: true
