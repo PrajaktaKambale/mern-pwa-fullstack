@@ -37,7 +37,8 @@ export default defineConfig({
           },
         ],
         server: {
-          host: true, // Make the server accessible on all network interfaces
+          port: 5173,
+          host: "0.0.0.0", // Allows access from outside the container
         },
       },
     }),

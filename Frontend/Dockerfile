@@ -1,10 +1,10 @@
-FROM node:18-alpine
-WORKDIR /app
-COPY package*.json .
-RUN npm ci
-COPY . .
-EXPOSE 5173
-CMD ["npm","start"]
+# FROM node:18-alpine
+# WORKDIR /app
+# COPY package*.json .
+# RUN npm ci
+# COPY . .
+# EXPOSE 5173
+# CMD ["npm","start"]
 
 
 # # Stage 1: Build the frontend
@@ -21,3 +21,24 @@ CMD ["npm","start"]
 # COPY nginx.conf /etc/nginx/nginx.conf
 
 
+FROM node:18-alpine
+WORKDIR /app
+
+# Install dependencies
+COPY package*.json ./
+RUN npm ci
+
+# Copy all source files
+COPY . ./
+
+# Build the application
+RUN npm run build
+
+# Install a lightweight HTTP server to serve the static files
+RUN npm install -g serve
+
+# Expose port 5173
+EXPOSE 5173
+
+# Serve the application
+CMD ["serve", "-s", "dist"]

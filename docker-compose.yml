@@ -1,9 +1,11 @@
+version: '3.8'
+
 services:
   frontend:
     build: ./Frontend
     container_name: bookstoreappUI
     ports:
-      - "5173:5173"
+      - "5173:5000" # Map port 5000 from the container to 5173 on your host if `serve` defaults to 5000
     stdin_open: true
     tty: true
     depends_on:
