@@ -3,9 +3,7 @@ services:
     build: ./Frontend
     container_name: bookstoreappUI
     ports:
-      - "5173:5173" # Update to match Vite's port
-    environment:
-      - VITE_API_URL=http://192.168.5.130:4001
+      - "5173:5173"
     stdin_open: true
     tty: true
     depends_on:
@@ -40,4 +38,3 @@ networks:
 
 volumes:
   mongo-backup:
-    driver: local # Ensure proper volume driver
