@@ -30,7 +30,7 @@ services:
     networks:
       - mern-network
 
-  mongo-db:
+  database:
     image: mongo:latest
     container_name: mongo-db
     ports:
