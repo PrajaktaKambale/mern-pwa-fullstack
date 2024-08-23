@@ -54,8 +54,9 @@
 services:
   frontend:
     build:
-      context: ./frontend
-      dockerfile: Dockerfile
+      build:
+        context: . # Ensure this is set to the root directory
+        dockerfile: Dockerfile
     ports:
       - "80:80"
     networks:
