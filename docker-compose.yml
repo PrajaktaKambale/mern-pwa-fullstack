@@ -1,52 +1,87 @@
+# services:
+#   frontend:
+#     build: ./Frontend
+#     container_name: bookstoreappUI
+#     ports:
+#       - "5173:5173" # Update to match Vite's port
+#     environment:
+#       - VITE_API_URL=http://192.168.5.130:4001
+#     stdin_open: true
+#     tty: true
+#     depends_on:
+#       - backend
+#     networks:
+#       - mern-network
+
+#   backend:
+#     build: ./Backend
+#     container_name: bookstoreBackend
+#     restart: always
+#     ports:
+#       - "4001:4001"
+#     depends_on:
+#       - database
+#     networks:
+#       - mern-network
+
+#   database:
+#     image: mongo
+#     container_name: mongo-db
+#     ports:
+#       - "27017:27017"
+#     volumes:
+#       - mongo-backup:/data/db
+#     networks:
+#       - mern-network
+
+#   nginx:
+#     image: nginx:latest
+#     container_name: nginx-server
+#     ports:
+#       - "80:80"
+#     volumes:
+#       - ./nginx.config:/etc/nginx/nginx.conf
+#     networks:
+#       - mern-network
+
+# networks:
+#   mern-network:
+#     driver: bridge
+
+# volumes:
+#   mongo-backup:
+
 services:
   frontend:
-    build: ./Frontend
-    container_name: bookstoreappUI
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     ports:
-      - "5173:5173" # Update to match Vite's port
-    environment:
-      - VITE_API_URL=http://192.168.5.130:4001
-    stdin_open: true
-    tty: true
-    depends_on:
-      - backend
+      - "80:80"
     networks:
       - mern-network
 
   backend:
-    build: ./Backend
-    container_name: bookstoreBackend
-    restart: always
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     ports:
       - "4001:4001"
-    depends_on:
-      - database
-    networks:
-      - mern-network
-
-  database:
-    image: mongo
-    container_name: mongo-db
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongo-backup:/data/db
     networks:
       - mern-network
 
   nginx:
     image: nginx:latest
-    container_name: nginx-server
     ports:
       - "80:80"
     volumes:
-      - ./nginx.config:/etc/nginx/nginx.conf
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - frontend
+      - backend
     networks:
       - mern-network
 
 networks:
   mern-network:
     driver: bridge
-
-volumes:
-  mongo-backup:
