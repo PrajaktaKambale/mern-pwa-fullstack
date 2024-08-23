@@ -1,13 +1,15 @@
+version: '3.8' # Make sure to use the correct version
+
 services:
   frontend:
     build:
-      context: ./Frontend
+      context: ./frontend
       dockerfile: Dockerfile
     container_name: bookstoreappUI
     ports:
       - "5173:80" # Frontend served on port 80 inside the container
     environment:
-      - VITE_API_URL=http://bookstoreBackend:4001
+      - VITE_API_URL=http://backend:4001 # Adjusted to match service name
     stdin_open: true
     tty: true
     depends_on:
@@ -17,7 +19,7 @@ services:
 
   backend:
     build:
-      context: ./Backend
+      context: ./backend
       dockerfile: Dockerfile
     container_name: bookstoreBackend
     restart: always
@@ -28,29 +30,29 @@ services:
     networks:
       - mern-network
 
-  database:
-    image: mongo
+  mongo-db:
+    image: mongo:latest
     container_name: mongo-db
     ports:
       - "27017:27017"
     volumes:
-      - mongo-backup:/data/db
+      - mongo-data:/data/db
     networks:
       - mern-network
 
   nginx-server:
-  image: nginx:latest
-  container_name: nginx-server
-  ports:
-    - "80:80"
-  depends_on:
-    - frontend
-    - backend
-  networks:
-    - mern-network
-  volumes:
-    - ./nginx.conf:/etc/nginx/nginx.conf
-    - ./frontend/dist:/usr/share/nginx/html
+    image: nginx:latest
+    container_name: nginx-server
+    ports:
+      - "80:80"
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - mern-network
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./frontend/dist:/usr/share/nginx/html # Frontend static files
 
 networks:
   mern-network:
