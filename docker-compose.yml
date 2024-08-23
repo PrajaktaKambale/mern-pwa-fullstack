@@ -1,3 +1,4 @@
+version: '3.8'
 services:
   frontend:
     build: ./Frontend
@@ -33,17 +34,12 @@ services:
       - mongo-backup:/data/db
     networks:
       - mern-network
-
   nginx:
-    image: nginx:alpine
-    container_name: nginx-proxy
+    image: nginx:latest
     ports:
       - "80:80"
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
-    depends_on:
-      - frontend
-      - backend
+      - ./nginx/conf.d:/etc/nginx/conf.d
     networks:
       - mern-network
 
