@@ -1,4 +1,5 @@
 version: '3.8'
+
 services:
   frontend:
     build: ./Frontend
@@ -34,12 +35,14 @@ services:
       - mongo-backup:/data/db
     networks:
       - mern-network
+
   nginx:
     image: nginx:latest
+    container_name: nginx-server
     ports:
       - "80:80"
     volumes:
-      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx.config:/etc/nginx/nginx.conf
     networks:
       - mern-network
 
