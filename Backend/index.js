@@ -26,34 +26,33 @@ dotenv.config();
 const PORT = process.env.PORT || 4000;
 const MONGODBURI = process.env.MongoDBURI;
 
-app.use(
-  cors({
-    origin: ["https://bookstoreapplication-pwa-dqf4.vercel.app"],
-    methods: ["POST", "GET"],
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: ["https://bookstoreapplication-pwa-dqf4.vercel.app"],
+//     methods: ["POST", "GET"],
+//     credentials: true,
+//   })
+// );
 
-
-
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (allowedOrigins.includes(origin) || !origin) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-  })
-);
+// app.use(
+//   cors({
+//     origin: function (origin, callback) {
+//       if (allowedOrigins.includes(origin) || !origin) {
+//         callback(null, true);
+//       } else {
+//         callback(new Error("Not allowed by CORS"));
+//       }
+//     },
+//   })
+//);
 
 //connect to mongodb
 try {
-  mongoose.connect(MONGODBURI);
+  //mongoose.connect(MONGODBURI);
+  mongoose.connect("mongodb://mongo-db/bookStoreApplication");
   console.log("Connected to Mongo");
 } catch (error) {
-  console.log("error connecting to ", error);
+  console.log("error connecting to Mongo", error);
 }
 
 // defining routes
