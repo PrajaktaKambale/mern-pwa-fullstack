@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -12,7 +13,6 @@ export default defineConfig({
         short_name: "MyPwaApp",
         description: "My Awesome App description",
         theme_color: "#ffffff",
-
         icons: [
           {
             src: "pwa-64x64.png",
@@ -36,11 +36,11 @@ export default defineConfig({
             purpose: "maskable",
           },
         ],
-        server: {
-          port: 5173,
-          host: "0.0.0.0", // Allows access from outside the container
-        },
       },
     }),
   ],
+  server: {
+    port: 5173,
+    host: true, // Allows access from outside the container
+  },
 });

@@ -2,27 +2,29 @@ version: '3.8'
 
 services:
   frontend:
-    build: ./Frontend
-    container_name: bookstoreappUI
+    build: ./frontend
+    container_name: bookstoreappui
     ports:
-      - "5173:5000" # Map port 5000 from the container to 5173 on your host if `serve` defaults to 5000
+      - "5173:5173"
     stdin_open: true
     tty: true
     depends_on:
       - backend
     networks:
-      - mern-network
+      - mern-pwa-fullstack_mern-network
 
   backend:
-    build: ./Backend
-    container_name: bookstoreBackend
+    build: ./backend
+    container_name: bookstorebackend
     restart: always
     ports:
       - "4001:4001"
+    environment:
+      MONGO_URI: mongodb://localhost:27017/bookStoreApplication?retryWrites=true&w=majority
     depends_on:
       - database
     networks:
-      - mern-network
+      - mern-pwa-fullstack_mern-network
 
   database:
     image: mongo
@@ -32,11 +34,11 @@ services:
     volumes:
       - mongo-backup:/data/db
     networks:
-      - mern-network
+      - mern-pwa-fullstack_mern-network
 
 networks:
-  mern-network:
-    driver: bridge
+  mern-pwa-fullstack_mern-network:
+    external: true
 
 volumes:
   mongo-backup:

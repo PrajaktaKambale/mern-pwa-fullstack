@@ -21,6 +21,7 @@
 # COPY nginx.conf /etc/nginx/nginx.conf
 
 
+# Dockerfile for Frontend
 FROM node:18-alpine
 WORKDIR /app
 
@@ -37,8 +38,9 @@ RUN npm run build
 # Install a lightweight HTTP server to serve the static files
 RUN npm install -g serve
 
-# Expose port 5173
+# Expose the correct port
 EXPOSE 5173
 
-# Serve the application
-CMD ["serve", "-s", "dist"]
+# Serve the application on the specified port
+CMD ["serve", "-s", "dist", "-l", "5173"]
+

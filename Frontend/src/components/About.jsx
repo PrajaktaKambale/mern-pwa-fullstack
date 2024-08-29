@@ -48,7 +48,7 @@ function Signup() {
             nihil dicta debitis sint aut. Sint quaerat vitae corrupti maxime
             soluta temporibus recusandae, reiciendis eligendi quidem blanditiis,
             deleniti suscipit. Blanditiis, iste.
-            <img src="public/banner.jpeg" alt="" />
+            <img src="/banner.jpeg" alt="" />
           </div>
         </div>
       </div>

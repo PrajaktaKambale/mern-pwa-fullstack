@@ -1,10 +1,22 @@
+# For the frontend service
 FROM node:18-alpine
+
+# Install bash
+RUN apk add --no-cache bash
+
 WORKDIR /app
+
 COPY package*.json ./
+
 RUN npm ci
+
 COPY . ./
-EXPOSE 4001
-CMD ["npm", "start"]
+
+EXPOSE 5173
+
+CMD ["npm", "run", "dev"]
+
+
 
 
 
